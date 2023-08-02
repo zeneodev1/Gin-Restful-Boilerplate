@@ -1,4 +1,4 @@
-# GIN-Restful-Boilerplate
+# Gin-Restful-Boilerplate
 
 ## Description
 
