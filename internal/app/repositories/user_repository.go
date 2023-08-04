@@ -20,7 +20,7 @@ func NewUserRepo() UserRepo {
 
 func (r *userRepo) ListUsers() ([]models.User, error) {
 	var users []models.User
-	if err := Repo.Find(&users).Error; err != nil {
+	if err := DB.Find(&users).Error; err != nil {
 		return nil, err
 	}
 	return users, nil
@@ -28,20 +28,20 @@ func (r *userRepo) ListUsers() ([]models.User, error) {
 
 func (r *userRepo) GetUser(id int) (*models.User, error) {
 	var user models.User
-	if err := Repo.First(&user, id).Error; err != nil {
+	if err := DB.First(&user, id).Error; err != nil {
 		return nil, err
 	}
 	return &user, nil
 }
 
 func (r *userRepo) CreateUser(user *models.User) error {
-	return Repo.Create(user).Error
+	return DB.Create(user).Error
 }
 
 func (r *userRepo) UpdateUser(user *models.User) error {
-	return Repo.Save(user).Error
+	return DB.Save(user).Error
 }
 
 func (r *userRepo) DeleteUser(user *models.User) error {
-	return Repo.Delete(user).Error
+	return DB.Delete(user).Error
 }

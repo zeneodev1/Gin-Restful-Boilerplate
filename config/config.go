@@ -25,21 +25,27 @@ type DBConfig struct {
 	Password string
 }
 
+const (
+	EnvDev  = "dev"
+	EnvTest = "test"
+	EnvProd = "prod"
+)
+
 var config Config
 
 func LoadConfig() {
-	err := godotenv.Load()
-	if err != nil {
-		panic(err)
-	}
-
 	var env string
 	if env = os.Getenv("GOENV"); env == "" {
 		env = "dev"
 	}
 	config.env = env
 
+	godotenv.Load(env + ".env")
 	parseConfig()
+}
+
+func GetEnv() string {
+	return config.env
 }
 
 func GetDBConfig() DBConfig {
