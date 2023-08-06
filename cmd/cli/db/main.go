@@ -42,6 +42,11 @@ func main() {
 
 	config.LoadConfig()
 
+	if os.Args[1] == "help" {
+		help()
+		return
+	}
+
 	cmd, err := fetchCommand()
 	if err != nil {
 		fmt.Printf("Error: %s\n", err.Error())
