@@ -2,15 +2,35 @@
 
 ## Description
 
-This is an empty repository for my project. There is no code or content here yet. This README.md file serves as a placeholder to provide some basic information about the project.
+This repository provides a boilerplate for building a RESTful API using Go, Gin, GORM and Postgres. This boilerplate is designed to help you kickstart your API development with a well-structured project setup and common functionalities.
 
-## Getting Started
+## Features
 
-As this is an empty repository, there is nothing to set up or install at the moment.
+- **Gin Framework**: Utilizes the fast and lightweight Gin web framework to handle HTTP routing, middleware, and request handling efficiently.
+
+- **GORM ORM**: Integrates GORM for database interaction, making it easier to work with databases and manage models in a structured manner.
+
+- **CRUD Operations**: Includes basic CRUD (Create, Read, Update, Delete) operations for a sample resource, demonstrating how to set up database models and perform API actions.
+
+- **Live reload**: Configured for live reload using **air** cli command to refresh the server upon code changes during development.
+
+- **Testing**: Provides a comprehensive testing setup using Go's built-in testing package and **testify** for testing API endpoints and components.
+
+- **Configuration**: Implements a configuration management system, allowing separation of environment-specific settings from the codebase.
+
+## API Endpoints
+
+The following API endpoints are available in this boilerplate:
+
+- `GET /api/resource`: Fetch a list of resources.
+- `GET /api/resource/:id`: Fetch details of a specific resource.
+- `POST /api/resource`: Create a new resource.
+- `PUT /api/resource/:id`: Update details of a specific resource.
+- `DELETE /api/resource/:id`: Delete a specific resource.
 
 ## Contributing
 
-Contributions are not required for an empty repository, but they are welcome once the project starts taking shape.
+Contributions to this boilerplate are welcome! Feel free to submit pull requests or open issues for any improvements, bug fixes, or additional features you'd like to see.
 
 ## License
 
