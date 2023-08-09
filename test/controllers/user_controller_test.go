@@ -10,10 +10,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
-	"github.com/zeneodev1/gin-restful-boilerplate/internal/app"
-	"github.com/zeneodev1/gin-restful-boilerplate/internal/app/models"
-	test_setup "github.com/zeneodev1/gin-restful-boilerplate/test"
-	"github.com/zeneodev1/gin-restful-boilerplate/test/fixtures"
+	"github.com/zeneodev1/gin-restful-boilerplate/internal/models"
+	"github.com/zeneodev1/gin-restful-boilerplate/internal/router"
+	"github.com/zeneodev1/gin-restful-boilerplate/test/helpers"
+	"github.com/zeneodev1/gin-restful-boilerplate/test/helpers/fixtures"
 )
 
 type userControllerTestSuite struct {
@@ -23,8 +23,8 @@ type userControllerTestSuite struct {
 }
 
 func (s *userControllerTestSuite) SetupSuite() {
-	test_setup.SetupRepo()
-	s.router = app.SetupRouter()
+	helpers.SetupDB()
+	s.router = router.SetupRouter()
 }
 
 func (s *userControllerTestSuite) SetupTest() {

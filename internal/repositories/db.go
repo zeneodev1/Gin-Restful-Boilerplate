@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/zeneodev1/gin-restful-boilerplate/config"
-	"github.com/zeneodev1/gin-restful-boilerplate/internal/app/models"
+	"github.com/zeneodev1/gin-restful-boilerplate/internal/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"

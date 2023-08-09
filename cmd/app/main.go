@@ -4,15 +4,15 @@ import (
 	"fmt"
 
 	"github.com/zeneodev1/gin-restful-boilerplate/config"
-	"github.com/zeneodev1/gin-restful-boilerplate/internal/app"
-	"github.com/zeneodev1/gin-restful-boilerplate/internal/app/repositories"
+	"github.com/zeneodev1/gin-restful-boilerplate/internal/repositories"
+	"github.com/zeneodev1/gin-restful-boilerplate/internal/router"
 )
 
 func main() {
 	config.LoadConfig()
 	repositories.ConnectDB()
 
-	router := app.SetupRouter()
+	router := router.SetupRouter()
 	err := router.Run(server_addr())
 	if err != nil {
 		panic(err)

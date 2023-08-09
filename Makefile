@@ -5,7 +5,7 @@ tests:
 	GOVENV=test go run ./cmd/cli/db create > /dev/null
 	GOVENV=test go test -p 1 ./test/... $(EXTRA_ARGS)
 tests-v:
-	make tests EXTRA_ARGS
+	make tests EXTRA_ARGS=-v
 db-create:
 	go run ./cmd/cli/db create
 db-drop:

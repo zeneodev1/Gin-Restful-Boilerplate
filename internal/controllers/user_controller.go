@@ -5,8 +5,8 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/zeneodev1/gin-restful-boilerplate/internal/app/models"
-	"github.com/zeneodev1/gin-restful-boilerplate/internal/app/services"
+	"github.com/zeneodev1/gin-restful-boilerplate/internal/models"
+	"github.com/zeneodev1/gin-restful-boilerplate/internal/services"
 )
 
 type UserCtrl struct {

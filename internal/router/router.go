@@ -1,9 +1,9 @@
-package app
+package router
 
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/zeneodev1/gin-restful-boilerplate/config"
-	"github.com/zeneodev1/gin-restful-boilerplate/internal/app/controllers"
+	"github.com/zeneodev1/gin-restful-boilerplate/internal/controllers"
 )
 
 func SetupRouter() *gin.Engine {

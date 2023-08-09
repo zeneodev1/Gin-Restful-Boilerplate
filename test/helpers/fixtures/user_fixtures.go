@@ -1,8 +1,8 @@
 package fixtures
 
 import (
-	"github.com/zeneodev1/gin-restful-boilerplate/internal/app/models"
-	"github.com/zeneodev1/gin-restful-boilerplate/internal/app/repositories"
+	"github.com/zeneodev1/gin-restful-boilerplate/internal/models"
+	"github.com/zeneodev1/gin-restful-boilerplate/internal/repositories"
 	"gorm.io/gorm"
 )
 

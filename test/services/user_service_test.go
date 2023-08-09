@@ -5,10 +5,10 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
-	"github.com/zeneodev1/gin-restful-boilerplate/internal/app/models"
-	"github.com/zeneodev1/gin-restful-boilerplate/internal/app/services"
-	test_setup "github.com/zeneodev1/gin-restful-boilerplate/test"
-	"github.com/zeneodev1/gin-restful-boilerplate/test/fixtures"
+	"github.com/zeneodev1/gin-restful-boilerplate/internal/models"
+	"github.com/zeneodev1/gin-restful-boilerplate/internal/services"
+	"github.com/zeneodev1/gin-restful-boilerplate/test/helpers"
+	"github.com/zeneodev1/gin-restful-boilerplate/test/helpers/fixtures"
 )
 
 type userServiceTestSuite struct {
@@ -18,7 +18,7 @@ type userServiceTestSuite struct {
 }
 
 func (s *userServiceTestSuite) SetupSuite() {
-	test_setup.SetupRepo()
+	helpers.SetupDB()
 	s.service = services.NewUserService()
 }
 
