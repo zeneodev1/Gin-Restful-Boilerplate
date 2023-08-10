@@ -2,14 +2,21 @@ package services
 
 import (
 	"github.com/zeneodev1/gin-restful-boilerplate/internal/models"
-	"github.com/zeneodev1/gin-restful-boilerplate/internal/repositories"
 )
 
 type UserService struct {
-	repo repositories.UserRepo
+	repo UserRepo
 }
 
-func NewUserService(repo repositories.UserRepo) UserService {
+type UserRepo interface {
+	ListUsers() ([]models.User, error)
+	GetUser(id int) (*models.User, error)
+	CreateUser(user *models.User) error
+	UpdateUser(user *models.User) error
+	DeleteUser(user *models.User) error
+}
+
+func NewUserService(repo UserRepo) UserService {
 	return UserService{
 		repo: repo,
 	}

@@ -6,14 +6,21 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/zeneodev1/gin-restful-boilerplate/internal/models"
-	"github.com/zeneodev1/gin-restful-boilerplate/internal/services"
 )
 
 type UserCtrl struct {
-	userService services.UserService
+	userService UserService
 }
 
-func NewUserCtrl(userService services.UserService) UserCtrl {
+type UserService interface {
+	ListUsers() ([]models.User, error)
+	GetUser(id int) (*models.User, error)
+	CreateUser(user *models.User) error
+	UpdateUser(id int, user *models.User) error
+	DeleteUser(id int) error
+}
+
+func NewUserCtrl(userService UserService) UserCtrl {
 	return UserCtrl{
 		userService: userService,
 	}
