@@ -5,37 +5,29 @@ import (
 	"github.com/zeneodev1/gin-restful-boilerplate/internal/repositories"
 )
 
-type UserService interface {
-	ListUsers() ([]models.User, error)
-	GetUser(id int) (*models.User, error)
-	CreateUser(user *models.User) error
-	UpdateUser(id int, user *models.User) error
-	DeleteUser(id int) error
-}
-
-type userService struct {
+type UserService struct {
 	repo repositories.UserRepo
 }
 
-func NewUserService() UserService {
-	return &userService{
-		repo: repositories.NewUserRepo(),
+func NewUserService(repo repositories.UserRepo) UserService {
+	return UserService{
+		repo: repo,
 	}
 }
 
-func (s *userService) ListUsers() ([]models.User, error) {
+func (s UserService) ListUsers() ([]models.User, error) {
 	return s.repo.ListUsers()
 }
 
-func (s *userService) GetUser(id int) (*models.User, error) {
+func (s UserService) GetUser(id int) (*models.User, error) {
 	return s.repo.GetUser(id)
 }
 
-func (s *userService) CreateUser(user *models.User) error {
+func (s UserService) CreateUser(user *models.User) error {
 	return s.repo.CreateUser(user)
 }
 
-func (s *userService) UpdateUser(id int, user *models.User) error {
+func (s UserService) UpdateUser(id int, user *models.User) error {
 	if _, err := s.GetUser(id); err != nil {
 		return err
 	}
@@ -44,7 +36,7 @@ func (s *userService) UpdateUser(id int, user *models.User) error {
 	return s.repo.UpdateUser(user)
 }
 
-func (s *userService) DeleteUser(id int) error {
+func (s UserService) DeleteUser(id int) error {
 	user, err := s.GetUser(id)
 	if err != nil {
 		return err

@@ -10,18 +10,17 @@ import (
 	"gorm.io/gorm/logger"
 )
 
-var DB *gorm.DB
-
-func ConnectDB() {
+func ConnectDB() (*gorm.DB, error) {
 	db, err := gorm.Open(postgres.Open(datasource()), &gorm.Config{
 		Logger: setupLogger(),
 	})
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
-	DB = db
-	DB.AutoMigrate(&models.User{})
+	db.AutoMigrate(&models.User{})
+
+	return db, nil
 }
 
 func datasource() string {

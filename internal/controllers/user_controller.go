@@ -13,13 +13,13 @@ type UserCtrl struct {
 	userService services.UserService
 }
 
-func NewUserCtrl() *UserCtrl {
-	return &UserCtrl{
-		userService: services.NewUserService(),
+func NewUserCtrl(userService services.UserService) UserCtrl {
+	return UserCtrl{
+		userService: userService,
 	}
 }
 
-func (ctrl *UserCtrl) Index(c *gin.Context) {
+func (ctrl UserCtrl) Index(c *gin.Context) {
 	users, err := ctrl.userService.ListUsers()
 
 	if err != nil {
@@ -30,7 +30,7 @@ func (ctrl *UserCtrl) Index(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"users": users})
 }
 
-func (ctrl *UserCtrl) Show(c *gin.Context) {
+func (ctrl UserCtrl) Show(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err.Error())
@@ -45,7 +45,7 @@ func (ctrl *UserCtrl) Show(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"user": user})
 }
 
-func (ctrl *UserCtrl) Create(c *gin.Context) {
+func (ctrl UserCtrl) Create(c *gin.Context) {
 	var t models.User
 	if err := c.ShouldBindJSON(&t); err != nil {
 		c.JSON(http.StatusBadRequest, err.Error())
@@ -60,7 +60,7 @@ func (ctrl *UserCtrl) Create(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{})
 }
 
-func (ctrl *UserCtrl) Update(c *gin.Context) {
+func (ctrl UserCtrl) Update(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err.Error())
@@ -81,7 +81,7 @@ func (ctrl *UserCtrl) Update(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"user": t})
 }
 
-func (ctrl *UserCtrl) Delete(c *gin.Context) {
+func (ctrl UserCtrl) Delete(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err.Error())

@@ -2,46 +2,41 @@ package repositories
 
 import (
 	"github.com/zeneodev1/gin-restful-boilerplate/internal/models"
+	"gorm.io/gorm"
 )
 
-type UserRepo interface {
-	ListUsers() ([]models.User, error)
-	GetUser(id int) (*models.User, error)
-	CreateUser(*models.User) error
-	UpdateUser(*models.User) error
-	DeleteUser(*models.User) error
+type UserRepo struct {
+	db *gorm.DB
 }
 
-type userRepo struct{}
-
-func NewUserRepo() UserRepo {
-	return &userRepo{}
+func NewUserRepo(db *gorm.DB) UserRepo {
+	return UserRepo{db}
 }
 
-func (r *userRepo) ListUsers() ([]models.User, error) {
+func (r UserRepo) ListUsers() ([]models.User, error) {
 	var users []models.User
-	if err := DB.Find(&users).Error; err != nil {
+	if err := r.db.Find(&users).Error; err != nil {
 		return nil, err
 	}
 	return users, nil
 }
 
-func (r *userRepo) GetUser(id int) (*models.User, error) {
+func (r UserRepo) GetUser(id int) (*models.User, error) {
 	var user models.User
-	if err := DB.First(&user, id).Error; err != nil {
+	if err := r.db.First(&user, id).Error; err != nil {
 		return nil, err
 	}
 	return &user, nil
 }
 
-func (r *userRepo) CreateUser(user *models.User) error {
-	return DB.Create(user).Error
+func (r UserRepo) CreateUser(user *models.User) error {
+	return r.db.Create(user).Error
 }
 
-func (r *userRepo) UpdateUser(user *models.User) error {
-	return DB.Save(user).Error
+func (r UserRepo) UpdateUser(user *models.User) error {
+	return r.db.Save(user).Error
 }
 
-func (r *userRepo) DeleteUser(user *models.User) error {
-	return DB.Delete(user).Error
+func (r UserRepo) DeleteUser(user *models.User) error {
+	return r.db.Delete(user).Error
 }

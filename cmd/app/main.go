@@ -10,10 +10,14 @@ import (
 
 func main() {
 	config.LoadConfig()
-	repositories.ConnectDB()
 
-	router := router.SetupRouter()
-	err := router.Run(server_addr())
+	db, err := repositories.ConnectDB()
+	if err != nil {
+		panic(err)
+	}
+
+	router := router.SetupRouter(db)
+	err = router.Run(server_addr())
 	if err != nil {
 		panic(err)
 	}

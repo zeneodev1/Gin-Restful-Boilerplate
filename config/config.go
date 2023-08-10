@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -40,7 +39,6 @@ func LoadConfig() {
 		env = "dev"
 	}
 	config.env = env
-	fmt.Println(env)
 
 	godotenv.Load(env + ".env")
 	parseConfig()
@@ -74,5 +72,4 @@ func parseConfig() {
 		Port: serverPort,
 		Host: os.Getenv("SERVER_HOST"),
 	}
-	fmt.Println(config)
 }

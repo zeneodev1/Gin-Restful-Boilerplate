@@ -3,10 +3,10 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/zeneodev1/gin-restful-boilerplate/config"
-	"github.com/zeneodev1/gin-restful-boilerplate/internal/controllers"
+	"gorm.io/gorm"
 )
 
-func SetupRouter() *gin.Engine {
+func SetupRouter(db *gorm.DB) *gin.Engine {
 	if config.GetEnv() != config.EnvDev {
 		gin.SetMode(gin.ReleaseMode)
 	}
@@ -18,15 +18,7 @@ func SetupRouter() *gin.Engine {
 		})
 	})
 
-	var userCtrl controllers.UserCtrl = *controllers.NewUserCtrl()
-	users := router.Group("/users")
-	{
-		users.GET("", userCtrl.Index)
-		users.GET("/:id", userCtrl.Show)
-		users.POST("", userCtrl.Create)
-		users.PUT("/:id", userCtrl.Update)
-		users.DELETE("/:id", userCtrl.Delete)
-	}
+	setupUserRouter(router, db)
 
 	return router
 }
