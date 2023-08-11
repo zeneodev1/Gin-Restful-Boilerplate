@@ -14,25 +14,32 @@ import (
 	"github.com/zeneodev1/gin-restful-boilerplate/internal/router"
 	"github.com/zeneodev1/gin-restful-boilerplate/test/helpers"
 	"github.com/zeneodev1/gin-restful-boilerplate/test/helpers/fixtures"
+	"gorm.io/gorm"
 )
 
 type userControllerTestSuite struct {
 	suite.Suite
 	router *gin.Engine
 	user   *models.User
+	tx     *gorm.DB
 }
 
 func (s *userControllerTestSuite) SetupSuite() {
-	helpers.SetupDB()
-	s.router = router.SetupRouter()
+	helpers.SetupEnv()
+	tx, err := helpers.SetupTx()
+	if err != nil {
+		s.T().FailNow()
+	}
+	s.tx = tx
+	s.router = router.SetupRouter(tx)
 }
 
 func (s *userControllerTestSuite) SetupTest() {
-	s.user = fixtures.UserFixture()
+	s.user = fixtures.UserFixture(s.tx)
 }
 
 func (s *userControllerTestSuite) TearDownTest() {
-	fixtures.ClearUsers()
+	s.tx = helpers.StartOverTx(s.tx)
 }
 
 func (s *userControllerTestSuite) TestIndex() {

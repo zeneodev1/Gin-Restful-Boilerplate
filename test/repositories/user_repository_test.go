@@ -9,25 +9,32 @@ import (
 	"github.com/zeneodev1/gin-restful-boilerplate/internal/repositories"
 	"github.com/zeneodev1/gin-restful-boilerplate/test/helpers"
 	"github.com/zeneodev1/gin-restful-boilerplate/test/helpers/fixtures"
+	"gorm.io/gorm"
 )
 
 type userRepositoryTestSuite struct {
 	suite.Suite
 	repo repositories.UserRepo
 	user *models.User
+	tx   *gorm.DB
 }
 
 func (s *userRepositoryTestSuite) SetupSuite() {
-	helpers.SetupDB()
-	s.repo = repositories.NewUserRepo()
+	helpers.SetupEnv()
+	tx, err := helpers.SetupTx()
+	if err != nil {
+		s.T().FailNow()
+	}
+	s.tx = tx
+	s.repo = repositories.NewUserRepo(tx)
 }
 
 func (s *userRepositoryTestSuite) SetupTest() {
-	s.user = fixtures.UserFixture()
+	s.user = fixtures.UserFixture(s.tx)
 }
 
 func (s *userRepositoryTestSuite) TearDownTest() {
-	fixtures.ClearUsers()
+	s.tx = helpers.StartOverTx(s.tx)
 }
 
 func (s *userRepositoryTestSuite) TestListUsers() {
